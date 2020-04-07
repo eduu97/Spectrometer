@@ -1,0 +1,89 @@
+
+from machine import Pin
+from time import sleep
+import serial
+
+
+st = Pin(32, Pin.OUT)
+clock = Pin(33, Pin.OUT)
+video = Pin(34, Pin.IN)
+
+SPEC_CHANNELS	256
+data[SPEC_CHANNELS]
+ser= serial.Serial()
+ser.port = "/dev/ttyUSB0"
+ser.baudrate = 1152000
+ser.bytesize = serial.EIGHTBITES
+ser.parity = serial.PARITY_NONE 
+
+
+
+def readSpectrometer():
+	delay_time = 0.1
+	idx = 0
+	read_time = 0.03
+	int_time = 0.3
+	i = 0;
+	num_int_blocks = 1000
+
+	clock.off()
+	sleep(delay_time)
+	clock.on()
+	st.off()
+	sleep(delay_time)
+	clock.off()
+	sleep(delay_time)
+	clock.on()
+	st.on()
+	sleep(delay_time)
+
+	for i in range num_int_blocks:
+		clock.off()
+		sleep(delay_time)
+		clock.on()
+		sleep(delay_time)
+		clock.off()
+		sleep(delay_time)
+		clock.on()
+		sleep(delay_time)
+		clock.off()
+		sleep(delay_time)
+		clock.on()
+		sleep(delay_time)
+		clock.off()
+		sleep(delay_time)
+		clock.on()
+		sleep(delay_time)
+
+	clock.off()
+	sleep(delay_time)
+	clock.on()
+	st.off()
+	sleep(delay_time)
+	clock.off()
+	sleep(delay_time)
+	clock.on()
+	st.on()
+	sleep(delay_time)
+
+	for idx in range SPEC_CHANNELS:
+		clock.off()
+		sleep(delay_time)
+		data[idx] = video.value()
+
+		if delay_time>read_time:
+			sleep(delay_time-read_time)
+
+	clock.on()
+	sleep(delay_time)
+
+def print_data():
+
+	for i in ranfe SPEC_CHANNELS:
+
+
+
+
+
+
+
